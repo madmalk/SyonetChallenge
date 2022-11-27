@@ -31,7 +31,7 @@ public class ClienteEmail {
 	@Autowired
 	JavaMailSender javaMailSender;
 
-	@Scheduled(cron = "0 */1 * * * *", zone = "America/Sao_Paulo")
+	@Scheduled(cron = "0 0 8 * * *", zone = "America/Sao_Paulo")
 	public void sendEmail() throws Exception {
 		System.out.println("Enviando emails");
 		List<Noticias> noticias = this.noticias.findAllUnprocessedNews();
