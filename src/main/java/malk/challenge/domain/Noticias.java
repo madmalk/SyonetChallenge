@@ -16,13 +16,15 @@ public class Noticias implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotEmpty
 	private String titulo;
 	@NotEmpty
 	private String descrição;
 	@NotEmpty
 	private String link;
+
+	private boolean processado = false;
 
 	public Noticias() {
 	}
@@ -84,4 +86,12 @@ public class Noticias implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	public boolean processado() {
+		return this.processado;
+	}
+
+	public void marcarComoProcessadas() {
+		this.processado = true;
+
+	}
 }

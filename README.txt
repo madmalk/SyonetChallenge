@@ -9,7 +9,14 @@ Como utilizar:
 
 Dar import do projeto no seu Eclipse.
 Iniciar aplicação através do ChallengeSyonetApplication.java
-Em seu Postman pode cadastrar tanto noticias como novos usúarios através de:
+
+ou inicaiando a aplicação:
+
+Entrar na pasta do projeto;
+./mvnw clean package
+java -jar ./target/demo-0.0.1-SNAPSHOT.jar
+
+A seguir no seu Postman pode cadastrar tanto noticias como novos usúarios através de:
 
 Para clientes:
 Dar um POST em http://localhost:8080/clientes com os seguintes componentes no body>raw/JSON:

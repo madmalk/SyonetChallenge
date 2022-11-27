@@ -12,7 +12,7 @@ import malk.challenge.repositories.NoticiasRepository;
 
 @Service
 public class NoticiasService {
-	
+
 	@Autowired
 	private NoticiasRepository repo;
 
@@ -21,14 +21,25 @@ public class NoticiasService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Noticias não encontrado! Id: " + id + ", Tipo: " + Noticias.class.getName()));
 	}
-	
+
 	public Noticias insert(Noticias obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-	
+
 	public List<Noticias> findAll() {
-	 return this.repo.findAll();
+		return this.repo.findAll();
 	}
-	
+
+	public List<Noticias> findAllUnprocessedNews() {
+		return this.repo.findByProcessado(false);
+	}
+
+	public void marcarComoProcessadas(List<Noticias> noticias) {
+		for(Noticias noticia : noticias) {
+			noticia.marcarComoProcessadas();			
+		}
+		this.repo.saveAll(noticias);
+	}
+
 }

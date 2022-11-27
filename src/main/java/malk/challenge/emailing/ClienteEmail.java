@@ -21,7 +21,7 @@ import malk.challenge.service.NoticiasService;
 @Configuration
 @EnableScheduling
 public class ClienteEmail {
-
+	
 	@Autowired
 	private ClienteService service;
 
@@ -31,10 +31,10 @@ public class ClienteEmail {
 	@Autowired
 	JavaMailSender javaMailSender;
 
-	@Scheduled(cron = "0 0 8 * * *", zone = "America/Sao_Paulo")
+	@Scheduled(cron = "0 */1 * * * *", zone = "America/Sao_Paulo")
 	public void sendEmail() throws Exception {
 		System.out.println("Enviando emails");
-		List<Noticias> noticias = this.noticias.findAll();
+		List<Noticias> noticias = this.noticias.findAllUnprocessedNews();
 		StringBuilder noticiasTemplate = new StringBuilder();
 		for (Noticias noticia : noticias) {
 			noticiasTemplate.append("<a href=\"%s\">%s</a> <br/> %s <br/><br/>"
@@ -51,5 +51,6 @@ public class ClienteEmail {
 			message.setContent(text, "text/html");
 			javaMailSender.send(message);
 		}
+		this.noticias.marcarComoProcessadas(noticias);
 	}
 }
